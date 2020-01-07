@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:ledger/common/app_config.dart';
 import 'package:ledger/common/net/net.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  MyApp() {
+    AppConfig.init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

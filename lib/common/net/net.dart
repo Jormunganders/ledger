@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'net_config.dart';
 import '../app_config.dart';
@@ -13,9 +15,10 @@ Dio getDio() {
 getBaseOption() {
   BaseOptions options = BaseOptions(
     baseUrl: BASE_URL,
-//    connectTimeout: CONNECTION_TIME_OUT,
-//    receiveTimeout: RECEIVE_TIME_OUT,
-//    headers: getBaseHeader(),
+    connectTimeout: CONNECTION_TIME_OUT,
+    receiveTimeout: RECEIVE_TIME_OUT,
+    headers: getBaseHeader(),
+    queryParameters: getBaseParameters(),
   );
   return options;
 }
@@ -32,7 +35,24 @@ getBaseHeader() {
 }
 
 getBaseParameters() {
-  // todo
-  // 设备信息（网络状况、机型、系统）
-  // uid
+  var map = {
+    // user about (like uid)
+
+    // flutter about
+    "numberOfProcessors": Platform.numberOfProcessors,
+    "localeName": Platform.localeName,
+    "operatingSystem": Platform.operatingSystem,
+    "operatingSystemVersion": Platform.operatingSystemVersion,
+    "localHostname": Platform.localHostname,
+    // app about
+    "appName": AppConfig.appName,
+    "packageName": AppConfig.packageName,
+    "version": AppConfig.version,
+    "buildNumber": AppConfig.buildNumber,
+  };
+  var deviceInfo = AppConfig.getDeviceInfo();
+  if (deviceInfo != null) {
+    map.addAll(deviceInfo);
+  }
+  return map;
 }

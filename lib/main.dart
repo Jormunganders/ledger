@@ -5,12 +5,9 @@ import 'package:ledger/common/net/net.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  MyApp() {
-    AppConfig.init();
-  }
-
   @override
   Widget build(BuildContext context) {
+    AppConfig.init(context);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

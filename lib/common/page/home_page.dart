@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,13 @@ class _HomeState extends State<HomePage> {
       ),
       body: getPageList()[_currentIndex]["page"],
       bottomNavigationBar: BottomNavigationBar(
-        items: null,
+        items: getPageList()
+            .map<BottomNavigationBarItem>((Map<String, dynamic> map) {
+          return BottomNavigationBarItem(
+            title: Text(map["name"]),
+            icon: Icon(map["icon"]),
+          );
+        }).toList(),
         currentIndex: _currentIndex,
         selectedItemColor: Colors.amber[800],
         onTap: (index) {

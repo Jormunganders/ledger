@@ -8,9 +8,25 @@ class AdapterManager {
 
   edit() => new Editor(datas);
 
-  Widget buildListItem(BuildContext context, int index) {
-    var item = datas[index];
+  Widget buildListItem(BuildContext context, int position) {
+    var item = datas[position];
+
+    Delegate selectDelegate;
+
     // 判断类型
+    delegates.forEach((Delegate delegate) {
+      if (item.runtimeType == delegate.getType()) {
+        if (delegate.isForType(item, position)) {
+          selectDelegate = delegate;
+        }
+      }
+    });
+
+    if (selectDelegate == null) {
+      throw new Exception("没有找到对应的 Delegate");
+    }
+
+    return selectDelegate.getHolder().build(context, item, position);
   }
 
   registerDelegate(Delegate delegate) {
@@ -40,22 +56,16 @@ class Editor {
   }
 }
 
-/**
- * D -> 数据类型
- * V -> ViewHolder 类型
- */
-class Delegate<D, V> {
+abstract class Delegate<D, V extends ViewHolder<D>> {
   isForType(D data, int position) => true;
 
-  V getHolder() {
-    return null;
+  Type getType() {
+    return D;
   }
 
+  V getHolder();
 }
 
-// 继承这个
-class ViewHolder<T> {
-  Widget build(T data, int position) {
-    return null;
-  }
+abstract class ViewHolder<T> {
+  Widget build(BuildContext context, T data, int position);
 }

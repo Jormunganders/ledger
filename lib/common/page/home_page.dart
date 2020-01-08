@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +26,9 @@ class _HomeState extends State<HomePage> {
     }));*/
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("账本"),
-      ),
+//      appBar: AppBar(
+//        title: const Text("账本"),
+//      ),
       body: getPageList()[_currentIndex]["page"],
       bottomNavigationBar: BottomNavigationBar(
         items: getPageList()

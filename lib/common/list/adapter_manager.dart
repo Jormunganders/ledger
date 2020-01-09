@@ -1,20 +1,28 @@
 import 'package:flutter/widgets.dart';
 
 class AdapterManager {
-  var datas = [];
-  List<Delegate> delegates = [];
+  var _dataList = [];
+  List<Delegate> _delegates = [];
 
-  size() => datas.length;
+  State _state;
 
-  edit() => new Editor(datas);
+  set state(State state) {
+    this._state = state;
+  }
+
+  size() => _dataList.length;
+
+  isEmpty() => _dataList.isEmpty;
+
+  edit() => new Editor(_dataList, _state);
 
   Widget buildListItem(BuildContext context, int position) {
-    var item = datas[position];
+    var item = _dataList[position];
 
     Delegate selectDelegate;
 
     // 判断类型
-    delegates.forEach((Delegate delegate) {
+    _delegates.forEach((Delegate delegate) {
       if (item.runtimeType == delegate.getType()) {
         if (delegate.isForType(item, position)) {
           selectDelegate = delegate;
@@ -30,29 +38,35 @@ class AdapterManager {
   }
 
   registerDelegate(Delegate delegate) {
-    delegates.add(delegate);
+    _delegates.add(delegate);
   }
 }
 
 class Editor {
   List data;
 
-  Editor(this.data);
+  State state;
 
-  add(dynamic item) {
+  Editor(this.data, this.state);
+
+  Editor add(dynamic item) {
     data.add(item);
+    return this;
   }
 
-  addAll(List list) {
+  Editor addAll(List list) {
     data.addAll(list);
+    return this;
   }
 
-  clear() {
+  Editor clear() {
     data.clear();
+    return this;
   }
 
   commit() {
-//    setState
+    // ignore: invalid_use_of_protected_member
+    state.setState(() {});
   }
 }
 

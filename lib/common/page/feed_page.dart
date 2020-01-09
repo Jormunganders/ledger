@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ledger/common/adapter_manager/adapters.dart';
+import 'package:ledger/common/list/list_view.dart';
 
 class FeedPage extends StatelessWidget {
+  var adapterManager = FeedAdapterManager();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,15 +13,13 @@ class FeedPage extends StatelessWidget {
         child: Icon(Icons.add),
         tooltip: "记账",
         onPressed: () {
-          print("HelloWorld");
+          adapterManager.edit().add("Hello").commit();
         },
       ),
       appBar: AppBar(
         title: const Text("账本"),
       ),
-      body: Center(
-        child: Text("等梁旭设计"),
-      ),
+      body: LokiListView(adapterManager),
     );
   }
 }

@@ -12,7 +12,6 @@ class TextDelegate extends Delegate<String, TextHolder> {
 class IntDelegate extends DelegateHolder<int> {
   @override
   Widget build(BuildContext context, int data, int position) {
-//    print("data: $data\t$position");
     return ListTile(
       leading: CircleAvatar(
         child: Text("$data"),
@@ -22,8 +21,4 @@ class IntDelegate extends DelegateHolder<int> {
     );
   }
 
-  @override
-  ViewHolder createCustomViewHolder() {
-    return IntHolder();
-  }
 }

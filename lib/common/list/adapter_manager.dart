@@ -106,7 +106,7 @@ class BaseViewHolder<D> extends ViewHolder<D> {
 
   @override
   Widget build(BuildContext context, D data, int position) {
-    _builder(context, data, position);
+    return _builder(context, data, position);
   }
 }
 

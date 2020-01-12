@@ -13,10 +13,14 @@ class FeedPage extends StatelessWidget {
 
   var index = 0;
 
+  FeedPage() {
+    print("FeedPage 创建");
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => _adapterManager,
+    return ChangeNotifierProvider<AdapterManager>.value(
+      value: _adapterManager,
       child: internalBuild(context),
     );
   }

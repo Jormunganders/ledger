@@ -14,6 +14,19 @@ class HomePage extends StatefulWidget {
 class _HomeState extends State<HomePage> {
   int _currentIndex = 0;
 
+  var pageList = [
+    {
+      "name": "账本",
+      "icon": Icons.book,
+      "page": FeedPage(),
+    },
+    {
+      "name": "我",
+      "icon": Icons.person,
+      "page": MinePage(),
+    }
+  ];
+
   @override
   Widget build(BuildContext context) {
     /*getPageStream().transform<BottomNavigationBarItem>(StreamTransformer<
@@ -29,9 +42,9 @@ class _HomeState extends State<HomePage> {
 //      appBar: AppBar(
 //        title: const Text("账本"),
 //      ),
-      body: getPageList()[_currentIndex]["page"],
+      body: pageList[_currentIndex]["page"],
       bottomNavigationBar: BottomNavigationBar(
-        items: getPageList()
+        items: pageList
             .map<BottomNavigationBarItem>((Map<String, dynamic> map) {
           return BottomNavigationBarItem(
             title: Text(map["name"]),
@@ -47,20 +60,5 @@ class _HomeState extends State<HomePage> {
         },
       ),
     );
-  }
-
-  List<Map<String, dynamic>> getPageList() {
-    return [
-      {
-        "name": "账本",
-        "icon": Icons.book,
-        "page": FeedPage(),
-      },
-      {
-        "name": "我",
-        "icon": Icons.person,
-        "page": MinePage(),
-      }
-    ];
   }
 }

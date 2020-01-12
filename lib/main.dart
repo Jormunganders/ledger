@@ -1,10 +1,7 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:ledger/common/app_config.dart';
 import 'package:ledger/common/page/home_page.dart';
 
-import 'common/utils.dart';
 
 void main() => runApp(MyApp());
 

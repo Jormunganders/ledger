@@ -1,34 +1,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:ledger/common/list/adapter_manager.dart';
+import 'package:provider/provider.dart';
 
 class LokiListView extends StatefulWidget {
+
   PageScene currentScene = PageScene.LIST;
-  AdapterManager adapterManager;
+
   IndexedWidgetBuilder separatorBuilder;
   bool autoEmpty;
 
-  LokiListView(this.adapterManager,
+  LokiListView(
       {this.currentScene = PageScene.LIST,
       this.separatorBuilder,
       this.autoEmpty = true});
 
   @override
   State<StatefulWidget> createState() {
-    return _LokiState(
-        adapterManager, currentScene, separatorBuilder, autoEmpty);
+    return _LokiState(currentScene, separatorBuilder, autoEmpty);
   }
 }
 
 class _LokiState extends State<LokiListView> {
+  // 要在这个时候创建 AdapterManager，因为 hot reload 的时候，只有 state 不会重新创建
+
   PageScene currentScene;
-  AdapterManager adapterManager;
   IndexedWidgetBuilder separatorBuilder;
   bool autoEmpty;
 
-  _LokiState(this.adapterManager, this.currentScene, this.separatorBuilder,
-      this.autoEmpty) {
-    adapterManager.state = this;
-  }
+  _LokiState(this.currentScene, this.separatorBuilder, this.autoEmpty);
 
   set scene(PageScene scene) {
     currentScene = scene;
@@ -36,6 +35,13 @@ class _LokiState extends State<LokiListView> {
 
   @override
   Widget build(BuildContext context) {
+    return Consumer<AdapterManager>(
+      builder: (context, adapterManager, _) =>
+          internalBuild(context, adapterManager),
+    );
+  }
+
+  Widget internalBuild(BuildContext context, AdapterManager adapterManager) {
     if (autoEmpty) {
       // 根据列表数据自动判断是否显示空页面
       if (adapterManager.isEmpty()) {
@@ -45,7 +51,7 @@ class _LokiState extends State<LokiListView> {
 
     switch (currentScene) {
       case PageScene.LIST:
-        return buildList();
+        return buildList(adapterManager);
       case PageScene.EMPTY:
         return buildEmptyPage();
       case PageScene.LOADING:
@@ -66,7 +72,7 @@ class _LokiState extends State<LokiListView> {
 
   buildNoNetPage() => Text("No Net");
 
-  buildList() => separatorBuilder == null
+  buildList(AdapterManager adapterManager) => separatorBuilder == null
       ? ListView.builder(
           itemBuilder: adapterManager.buildListItem,
           itemCount: adapterManager.size(),

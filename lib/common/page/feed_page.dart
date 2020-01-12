@@ -1,25 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ledger/common/adapter_manager/adapters.dart';
+import 'package:ledger/common/delegate/delegates.dart';
+import 'package:ledger/common/list/adapter_manager.dart';
 import 'package:ledger/common/list/list_view.dart';
+import 'package:provider/provider.dart';
 
 class FeedPage extends StatelessWidget {
-  var adapterManager = FeedAdapterManager();
+  final _adapterManager = AdapterManager()
+      .registerDelegate(new TextDelegate())
+      .registerDelegate(new IntDelegate());
+
+  var index = 0;
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => _adapterManager,
+      child: internalBuild(context),
+    );
+  }
+
+  Widget internalBuild(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         tooltip: "记账",
         onPressed: () {
-          adapterManager.edit().add("Hello").commit();
+          _adapterManager.edit().add(index).add("HelloWorld").commit();
+          index++;
         },
       ),
       appBar: AppBar(
         title: const Text("账本"),
       ),
-      body: LokiListView(adapterManager),
+      body: buildLokiListView(),
+    );
+  }
+
+  buildLokiListView() {
+    return LokiListView(
+      separatorBuilder: (BuildContext context, int index) {
+        return Divider();
+      },
     );
   }
 }
+
+/*LokiListView(
+        FeedAdapterManager(),
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider();
+        },
+      )*/

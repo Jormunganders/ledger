@@ -1,20 +1,18 @@
 import 'package:flutter/widgets.dart';
 
-class AdapterManager {
+class AdapterManager with ChangeNotifier {
   var _dataList = [];
   List<Delegate> _delegates = [];
-
-  State _state;
-
-  set state(State state) {
-    this._state = state;
-  }
 
   size() => _dataList.length;
 
   isEmpty() => _dataList.isEmpty;
 
-  edit() => new Editor(_dataList, _state);
+  edit() => new Editor(_dataList, this);
+
+  notifyDataChanged() {
+    notifyListeners();
+  }
 
   Widget buildListItem(BuildContext context, int position) {
     var item = _dataList[position];
@@ -37,17 +35,18 @@ class AdapterManager {
     return selectDelegate.getHolder().build(context, item, position);
   }
 
-  registerDelegate(Delegate delegate) {
+  AdapterManager registerDelegate(Delegate delegate) {
     _delegates.add(delegate);
+    return this;
   }
 }
 
 class Editor {
   List data;
 
-  State state;
+  AdapterManager _adapterManager;
 
-  Editor(this.data, this.state);
+  Editor(this.data, this._adapterManager);
 
   Editor add(dynamic item) {
     data.add(item);
@@ -65,8 +64,7 @@ class Editor {
   }
 
   commit() {
-    // ignore: invalid_use_of_protected_member
-    state.setState(() {});
+    _adapterManager.notifyDataChanged();
   }
 }
 
@@ -83,3 +81,36 @@ abstract class Delegate<D, V extends ViewHolder<D>> {
 abstract class ViewHolder<T> {
   Widget build(BuildContext context, T data, int position);
 }
+
+abstract class DelegateHolder<D> extends Delegate<D, ViewHolder<D>> {
+  Widget build(BuildContext context, D data, int position);
+
+  ViewHolder createCustomViewHolder() {
+    return null;
+  }
+
+  @override
+  ViewHolder<D> getHolder() {
+    ViewHolder holder = createCustomViewHolder();
+    if (holder != null) {
+      return holder;
+    }
+    return BaseViewHolder(build);
+  }
+}
+
+class BaseViewHolder<D> extends ViewHolder<D> {
+  final HolderWidgetBuilder<D> _builder;
+
+  BaseViewHolder(this._builder);
+
+  @override
+  Widget build(BuildContext context, D data, int position) {
+    _builder(context, data, position);
+  }
+}
+
+typedef HolderWidgetBuilder<D> = Widget Function(
+    BuildContext context, D data, int index);
+
+typedef AdapterManagerProvider = AdapterManager Function();

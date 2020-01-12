@@ -3,6 +3,6 @@ import 'package:ledger/common/list/adapter_manager.dart';
 
 class FeedAdapterManager extends AdapterManager {
   FeedAdapterManager() {
-    registerDelegate(new TextDelegate());
+
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:ledger/common/adapter_manager/adapters.dart';
 import 'package:ledger/common/delegate/delegates.dart';
 import 'package:ledger/common/list/adapter_manager.dart';
 import 'package:ledger/common/list/list_view.dart';
@@ -12,10 +11,6 @@ class FeedPage extends StatelessWidget {
       .registerDelegate(new IntDelegate());
 
   var index = 0;
-
-  FeedPage() {
-    print("FeedPage 创建");
-  }
 
   @override
   Widget build(BuildContext context) {

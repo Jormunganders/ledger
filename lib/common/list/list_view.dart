@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:ledger/common/list/adapter_manager.dart';
+import 'package:ledger/common/page/common_page.dart';
 import 'package:provider/provider.dart';
 
 class LokiListView extends StatefulWidget {
-
   PageScene currentScene = PageScene.LIST;
 
   IndexedWidgetBuilder separatorBuilder;
@@ -42,15 +43,14 @@ class _LokiState extends State<LokiListView> {
   }
 
   Widget internalBuild(BuildContext context, AdapterManager adapterManager) {
-    if (autoEmpty) {
-      // 根据列表数据自动判断是否显示空页面
-      if (adapterManager.isEmpty()) {
-        return buildEmptyPage();
-      }
-    }
-
     switch (currentScene) {
       case PageScene.LIST:
+        if (autoEmpty) {
+          // 根据列表数据自动判断是否显示空页面
+          if (adapterManager.isEmpty()) {
+            return buildEmptyPage();
+          }
+        }
         return buildList(adapterManager);
       case PageScene.EMPTY:
         return buildEmptyPage();
@@ -64,13 +64,20 @@ class _LokiState extends State<LokiListView> {
     return buildErrorPage();
   }
 
-  buildEmptyPage() => Text("empty");
+  buildEmptyPage() => EmptyPage();
 
-  buildLoadingPage() => Text("Loading");
+  buildLoadingPage() =>
+      SpinKitRotatingPlain(color: Theme.of(context).accentColor);
 
-  buildErrorPage() => Text("Error");
+  // todo
+  buildErrorPage() => ErrorPage(
+        onPress: () => print("重新加载"),
+      );
 
-  buildNoNetPage() => Text("No Net");
+  // todo
+  buildNoNetPage() => NoNetPage(
+        onPress: () => print("刷新"),
+      );
 
   buildList(AdapterManager adapterManager) => separatorBuilder == null
       ? ListView.builder(

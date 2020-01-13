@@ -5,6 +5,8 @@ import 'package:ledger/common/list/adapter_manager.dart';
 import 'package:ledger/common/list/list_view.dart';
 import 'package:provider/provider.dart';
 
+import '../strings.dart';
+
 class FeedPage extends StatelessWidget {
   final _adapterManager = AdapterManager()
       .registerDelegate(new TextDelegate())
@@ -31,7 +33,7 @@ class FeedPage extends StatelessWidget {
         },
       ),
       appBar: AppBar(
-        title: const Text("账本"),
+        title: const Text(feed_title),
       ),
       body: buildLokiListView(),
     );

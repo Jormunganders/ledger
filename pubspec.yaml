@@ -23,3 +23,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - graphics/image_empty.png
+    - graphics/image_no_net.png
+    - graphics/image_error.png

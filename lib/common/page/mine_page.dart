@@ -58,9 +58,15 @@ class MinePage extends StatelessWidget {
               ),
             ),
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text("juhezix@163.com"),
-                Icon(Icons.)
+                Text(
+                  "Juhezix@163.com",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Icon(Icons.keyboard_arrow_down)
               ],
             )
           ],

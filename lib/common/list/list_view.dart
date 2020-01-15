@@ -5,19 +5,25 @@ import 'package:ledger/common/page/common_page.dart';
 import 'package:provider/provider.dart';
 
 class LokiListView extends StatefulWidget {
-  PageScene currentScene = PageScene.LIST;
-
+  PageScene currentScene;
   IndexedWidgetBuilder separatorBuilder;
   bool autoEmpty;
+  bool autoCrossAxisCount; // 自动计算网格布局的列数
+  int crossAxisCount; // 网格布局的列数
+  bool gridLayout; // 使用网格布局
 
   LokiListView(
       {this.currentScene = PageScene.LIST,
       this.separatorBuilder,
-      this.autoEmpty = true});
+      this.autoEmpty = true,
+      this.autoCrossAxisCount = false,
+      this.crossAxisCount = 2,
+      this.gridLayout = false});
 
   @override
   State<StatefulWidget> createState() {
-    return _LokiState(currentScene, separatorBuilder, autoEmpty);
+    return _LokiState(currentScene, separatorBuilder, autoEmpty,
+        autoCrossAxisCount, crossAxisCount, gridLayout);
   }
 }
 
@@ -27,8 +33,12 @@ class _LokiState extends State<LokiListView> {
   PageScene currentScene;
   IndexedWidgetBuilder separatorBuilder;
   bool autoEmpty;
+  bool autoCrossAxisCount;
+  int crossAxisCount;
+  bool gridLayout;
 
-  _LokiState(this.currentScene, this.separatorBuilder, this.autoEmpty);
+  _LokiState(this.currentScene, this.separatorBuilder, this.autoEmpty,
+      this.autoCrossAxisCount, this.crossAxisCount, this.gridLayout);
 
   set scene(PageScene scene) {
     currentScene = scene;
@@ -79,15 +89,33 @@ class _LokiState extends State<LokiListView> {
         onPress: () => print("刷新"),
       );
 
-  buildList(AdapterManager adapterManager) => separatorBuilder == null
-      ? ListView.builder(
+  int _crossAxisCount() {
+    return crossAxisCount;
+  }
+
+  buildList(AdapterManager adapterManager) {
+    if (gridLayout) {
+      return GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+        ),
+        itemBuilder: adapterManager.buildListItem,
+        itemCount: adapterManager.size(),
+      );
+    } else {
+      if (separatorBuilder == null) {
+        return ListView.builder(
           itemBuilder: adapterManager.buildListItem,
           itemCount: adapterManager.size(),
-        )
-      : ListView.separated(
-          itemBuilder: adapterManager.buildListItem,
-          separatorBuilder: separatorBuilder,
-          itemCount: adapterManager.size());
+        );
+      } else {
+        return ListView.separated(
+            itemBuilder: adapterManager.buildListItem,
+            separatorBuilder: separatorBuilder,
+            itemCount: adapterManager.size());
+      }
+    }
+  }
 }
 
 enum PageScene {

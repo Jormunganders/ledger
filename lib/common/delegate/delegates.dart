@@ -18,7 +18,7 @@ class IntDelegate extends DelegateHolder<int> {
       ),
       title: Text("Position $position"),
       subtitle: Text("Hello World"),
+      trailing: Icon(Icons.chevron_right),
     );
   }
-
 }

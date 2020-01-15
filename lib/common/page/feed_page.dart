@@ -7,7 +7,12 @@ import 'package:provider/provider.dart';
 
 import '../strings.dart';
 
-class FeedPage extends StatelessWidget {
+class FeedPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _FeedState();
+}
+
+class _FeedState extends State<FeedPage> {
   final _adapterManager = AdapterManager()
       .registerDelegate(new TextDelegate())
       .registerDelegate(new IntDelegate());
@@ -44,6 +49,7 @@ class FeedPage extends StatelessWidget {
       separatorBuilder: (BuildContext context, int index) {
         return Divider();
       },
+      gridLayout: true,
     );
   }
 }

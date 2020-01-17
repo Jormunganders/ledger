@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ledger/common/page/account_page.dart';
 import 'package:ledger/common/page/home_page.dart';
 import 'package:ledger/common/strings.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: SignInPage(),
     );
   }
 }

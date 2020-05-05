@@ -49,7 +49,6 @@ class _FeedState extends State<FeedPage> {
       separatorBuilder: (BuildContext context, int index) {
         return Divider();
       },
-      gridLayout: true,
     );
   }
 }

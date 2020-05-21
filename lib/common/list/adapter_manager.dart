@@ -1,6 +1,20 @@
 import 'package:flutter/widgets.dart';
 
 class AdapterManager with ChangeNotifier {
+  static Map<String, AdapterManager> _cache = new Map<String, AdapterManager>();
+
+  factory AdapterManager(String key) {
+    if (_cache.containsKey(key)) {
+      return _cache[key];
+    } else {
+      final AdapterManager adapterManager = new AdapterManager._internal();
+      _cache[key] = adapterManager;
+      return adapterManager;
+    }
+  }
+
+  AdapterManager._internal();
+
   var _dataList = [];
   List<Delegate> _delegates = [];
 

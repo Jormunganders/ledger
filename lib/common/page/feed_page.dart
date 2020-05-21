@@ -13,7 +13,7 @@ class FeedPage extends StatefulWidget {
 }
 
 class _FeedState extends State<FeedPage> {
-  final _adapterManager = AdapterManager()
+  final _adapterManager = AdapterManager("FeedPage")
       .registerDelegate(new TextDelegate())
       .registerDelegate(new IntDelegate());
 
@@ -33,6 +33,7 @@ class _FeedState extends State<FeedPage> {
         child: Icon(Icons.add),
         tooltip: "记账",
         onPressed: () {
+          print("AdapterManager is ${_adapterManager.hashCode}");
           _adapterManager.edit().add(index).add("HelloWorld").commit();
           index++;
         },

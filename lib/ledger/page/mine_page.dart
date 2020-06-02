@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ledger/common/colors.dart';
+import 'package:ledger/common/develop.dart';
 import 'package:ledger/common/strings.dart';
-import 'package:ledger/demo/demo_page.dart';
-
-import '../develop.dart';
+import 'package:ledger/reader/page/reader_page.dart';
 
 class MinePage extends StatelessWidget {
   @override
@@ -91,9 +90,7 @@ class MinePage extends StatelessWidget {
     );
   }
 
-  /**
-   * 设置按钮
-   */
+  /// 设置按钮
   _buildMorePopupMenuButton(BuildContext context) {
     return PopupMenuButton<String>(
       itemBuilder: (context) {
@@ -125,7 +122,7 @@ class MinePage extends StatelessWidget {
           case DEMO:
             Navigator.push(
               context,
-              new MaterialPageRoute(builder: (context) => new DemoPage()),
+              new MaterialPageRoute(builder: (context) => new ReaderPage()),
             );
             break;
         }

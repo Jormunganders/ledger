@@ -2,18 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:ledger/common/page/feed_page.dart';
-import 'package:ledger/demo/demo_page.dart';
-
-import 'mine_page.dart';
+import 'package:ledger/ledger/page/feed_page.dart';
+import 'package:ledger/ledger/page/mine_page.dart';
+import 'package:ledger/reader/page/reader_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _HomeState();
 }
 
+const DEFAULT_TAB_INDEX = 1; // 默认选中的 tab
+
 class _HomeState extends State<HomePage> {
-  int _currentIndex = 0;
+  int _currentIndex;
+
+  _HomeState() {
+    _currentIndex =
+        DEFAULT_TAB_INDEX >= pageList.length ? 0 : DEFAULT_TAB_INDEX;
+  }
 
   var pageList = [
     {
@@ -22,9 +28,9 @@ class _HomeState extends State<HomePage> {
       "page": FeedPage(),
     },
     {
-      "name": "测试",
+      "name": "御书房",
       "icon": Icons.account_balance,
-      "page": DemoPage(),
+      "page": ReaderPage(),
     },
     {
       "name": "我",

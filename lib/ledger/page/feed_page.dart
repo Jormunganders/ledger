@@ -5,7 +5,7 @@ import 'package:ledger/common/list/adapter_manager.dart';
 import 'package:ledger/common/list/list_view.dart';
 import 'package:provider/provider.dart';
 
-import '../strings.dart';
+import '../../common/strings.dart';
 
 class FeedPage extends StatefulWidget {
   @override

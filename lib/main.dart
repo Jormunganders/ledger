@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ledger/common/page/account_page.dart';
-import 'package:ledger/common/page/home_page.dart';
+import 'package:ledger/ledger/page/account_page.dart';
+import 'package:ledger/main/page/home_page.dart';
 import 'package:ledger/common/strings.dart';
 
 void main() => runApp(MyApp());

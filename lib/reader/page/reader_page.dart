@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DemoPage extends StatelessWidget {
+class ReaderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

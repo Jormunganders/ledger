@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ledger/common/net/net.dart';
 
@@ -16,8 +17,9 @@ class ReaderPage extends StatelessWidget {
               onPressed: () {
                 print("Start Get");
                 getDio()
-                    .get("http://www.baidu.com")
-                    .then((value) => print);
+                    .get("https://wanandroid.com/wxarticle/chapters/json")
+                    .then(print);
+                // todo json 解析，item
               },
             ),
           ),

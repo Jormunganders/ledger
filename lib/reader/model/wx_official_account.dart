@@ -1,13 +1,13 @@
 import 'package:ledger/common/model/base_net_model.dart';
 
-class WXArticleList extends BaseNetModel<List<WXArticle>> {
-  List<WXArticle> data;
+class WXOfficialAccountList extends BaseNetModel<List<WXOfficialAccount>> {
+  List<WXOfficialAccount> data;
 
-  WXArticleList.fromJson(Map<String, dynamic> json) {
+  WXOfficialAccountList.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = new List<WXArticle>();
+      data = new List<WXOfficialAccount>();
       json['data'].forEach((v) {
-        data.add(new WXArticle.fromJson(v));
+        data.add(new WXOfficialAccount.fromJson(v));
       });
     }
     errorCode = json['errorCode'];
@@ -25,7 +25,7 @@ class WXArticleList extends BaseNetModel<List<WXArticle>> {
   }
 }
 
-class WXArticle {
+class WXOfficialAccount {
   List<String> children;
   int courseId;
   int id;
@@ -35,7 +35,7 @@ class WXArticle {
   bool userControlSetTop;
   int visible;
 
-  WXArticle(
+  WXOfficialAccount(
       {this.children,
       this.courseId,
       this.id,
@@ -45,7 +45,7 @@ class WXArticle {
       this.userControlSetTop,
       this.visible});
 
-  WXArticle.fromJson(Map<String, dynamic> json) {
+  WXOfficialAccount.fromJson(Map<String, dynamic> json) {
     if (json['children'] != null) {
       children = new List<Null>();
       json['children'].forEach((v) {

@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:ledger/common/colors.dart';
 import 'package:ledger/common/develop.dart';
 import 'package:ledger/common/strings.dart';
-import 'package:ledger/reader/page/reader_page.dart';
+import 'package:ledger/reader/page/reader_host_page.dart';
 
 class MinePage extends StatelessWidget {
   @override
@@ -122,7 +122,7 @@ class MinePage extends StatelessWidget {
           case DEMO:
             Navigator.push(
               context,
-              new MaterialPageRoute(builder: (context) => new ReaderPage()),
+              new MaterialPageRoute(builder: (context) => new ReaderHostPage()),
             );
             break;
         }

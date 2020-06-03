@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ledger/ledger/page/feed_page.dart';
 import 'package:ledger/ledger/page/mine_page.dart';
-import 'package:ledger/reader/page/reader_page.dart';
+import 'package:ledger/reader/page/reader_host_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -30,7 +30,7 @@ class _HomeState extends State<HomePage> {
     {
       "name": "御书房",
       "icon": Icons.account_balance,
-      "page": ReaderPage(),
+      "page": ReaderHostPage(),
     },
     {
       "name": "我",

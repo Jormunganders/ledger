@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:ledger/common/net/net.dart';
+import 'package:ledger/reader/config/reader_net_service.dart';
 
-class ReaderPage extends StatelessWidget {
+class ReaderHostPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -14,20 +15,15 @@ class ReaderPage extends StatelessWidget {
           body: Center(
             child: RaisedButton(
               child: Text("Get"),
-              onPressed: () {
-                print("Start Get");
-                getDio()
-                    .get("https://wanandroid.com/wxarticle/chapters/json")
-                    .then();
-                // todo json 解析，item
+              onPressed: () async {
+                var list = await ReaderNetService.getWXOfficialAccountList();
+                print(list.data[0].name);
               },
             ),
           ),
         ));
   }
 }
-
-
 
 // ignore: non_constant_identifier_names
 final READER_THEME_DATA = new ThemeData(

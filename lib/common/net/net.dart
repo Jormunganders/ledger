@@ -5,25 +5,24 @@ import 'net_config.dart';
 import '../app_config.dart';
 import '../utils.dart';
 
-Dio getDio() {
-  return Dio(getBaseOption());
+Dio globalDio() {
+  return Dio(_getBaseOption());
 }
 
-/**
- * 基础网络配置
- */
-getBaseOption() {
+/// 基础网络配置
+_getBaseOption() {
   BaseOptions options = BaseOptions(
     baseUrl: BASE_URL,
     connectTimeout: CONNECTION_TIME_OUT,
     receiveTimeout: RECEIVE_TIME_OUT,
-    headers: getBaseHeader(),
-    queryParameters: getBaseParameters(),
+    headers: _getBaseHeader(),
+    queryParameters: _getBaseParameters(),
+    responseType: ResponseType.json,
   );
   return options;
 }
 
-getBaseHeader() {
+_getBaseHeader() {
   var map = {
 //    "User-Agent": "", // todo
     "X-Sessionid": generateUUID(),
@@ -34,7 +33,7 @@ getBaseHeader() {
   return map;
 }
 
-getBaseParameters() {
+_getBaseParameters() {
   var map = {
     // user about (like uid)
 
@@ -55,4 +54,17 @@ getBaseParameters() {
     map.addAll(deviceInfo);
   }
   return map;
+}
+
+//-------Functions---------
+handleNetResponse(
+  Response response, {
+  String url = "No Url",
+  String message = "No Message",
+  String scene = "No Scene",
+}) {
+  if (isInProduction()) {
+    print(
+        "Url：[$url]\tScene: [$scene]\tMessage: [$message]\tCode:[${response.statusCode}]");
+  }
 }

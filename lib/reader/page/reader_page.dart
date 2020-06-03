@@ -18,7 +18,7 @@ class ReaderPage extends StatelessWidget {
                 print("Start Get");
                 getDio()
                     .get("https://wanandroid.com/wxarticle/chapters/json")
-                    .then(print);
+                    .then();
                 // todo json 解析，item
               },
             ),
@@ -26,6 +26,8 @@ class ReaderPage extends StatelessWidget {
         ));
   }
 }
+
+
 
 // ignore: non_constant_identifier_names
 final READER_THEME_DATA = new ThemeData(

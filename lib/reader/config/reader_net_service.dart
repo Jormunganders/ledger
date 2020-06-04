@@ -6,9 +6,9 @@ import 'package:ledger/reader/model/wx_official_account.dart';
 
 class ReaderNetService {
   static Future<WXOfficialAccountList> getWXOfficialAccountList() async {
-    Response response = await globalDio().get(GET_WX_ARTICLE_LIST);
+    Response response = await globalDio().get(URL.GET_WX_ARTICLE_LIST);
     handleNetResponse(response,
-        url: GET_WX_ARTICLE_LIST,
+        url: URL.GET_WX_ARTICLE_LIST,
         message: "获取公众号列表",
         scene: Scene.WX_OFFICIAL_ACCOUNT_LIST.toString());
     return WXOfficialAccountList.fromJson(response.data);

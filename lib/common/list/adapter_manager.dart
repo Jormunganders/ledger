@@ -1,9 +1,13 @@
 import 'package:flutter/widgets.dart';
 
+// todo 增加状态切换，loading，error 这些页面
 class AdapterManager with ChangeNotifier {
   static Map<String, AdapterManager> _cache = new Map<String, AdapterManager>();
 
   factory AdapterManager(String key) {
+    if (key == null || key.isEmpty) {
+      return new AdapterManager._internal();
+    }
     if (_cache.containsKey(key)) {
       return _cache[key];
     } else {

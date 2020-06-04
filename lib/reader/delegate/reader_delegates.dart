@@ -1,9 +1,11 @@
 // ignore: implementation_imports
 import 'package:flutter/material.dart';
+
 // ignore: implementation_imports
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:ledger/common/list/adapter_manager.dart';
 import 'package:ledger/reader/model/wx_official_account.dart';
+import 'package:ledger/reader/page/wx_official_account_detail_page.dart';
 
 class WXOfficialDelegate extends DelegateHolder<WXOfficialAccount> {
   @override
@@ -13,6 +15,14 @@ class WXOfficialDelegate extends DelegateHolder<WXOfficialAccount> {
         child: Text(data.name.substring(0, 1).toUpperCase()),
       ),
       title: Text(data.name),
+      trailing: Icon(Icons.keyboard_arrow_right),
+      onTap: () {
+        print("跳转");
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => WXOfficialAccountDetailPage()));
+      },
     );
   }
 }

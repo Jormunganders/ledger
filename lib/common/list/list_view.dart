@@ -125,3 +125,40 @@ enum PageScene {
   ERROR,
   NO_NET,
 }
+
+abstract class BaseLokiListState<T extends StatefulWidget> extends State<T> {
+  String mKey;
+  AdapterManager mAdapterManager;
+
+  BaseLokiListState(
+    AdapterManagerClosure closure, {
+    String key,
+  }) {
+    this.mKey = key;
+    mAdapterManager = AdapterManager(key);
+    closure(mAdapterManager);
+  }
+
+  // 修改布局重写这个方法
+  Widget internalBuild(BuildContext context) {
+    return buildLokiListView();
+  }
+
+  buildLokiListView() {
+    return LokiListView(
+      separatorBuilder: (BuildContext context, int index) {
+        return Divider();
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider<AdapterManager>.value(
+      value: mAdapterManager,
+      child: internalBuild(context),
+    );
+  }
+}
+
+typedef AdapterManagerClosure = void Function(AdapterManager adapterManager);

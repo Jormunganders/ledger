@@ -6,4 +6,5 @@ class URL {
 
 class PAGE_TITLE {
   static const WX_OFFICIAL_ACCOUNT_LIST = "微信公众号列表";
+  static const WX_OFFICIAL_ACCOUNT_DETAIL = "微信公众号详情";
 }

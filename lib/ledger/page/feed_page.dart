@@ -12,20 +12,15 @@ class FeedPage extends StatefulWidget {
   State<StatefulWidget> createState() => _FeedState();
 }
 
-class _FeedState extends State<FeedPage> {
-  final _adapterManager = AdapterManager("FeedPage")
-      .registerDelegate(new TextDelegate())
-      .registerDelegate(new IntDelegate());
-
+class _FeedState extends BaseLokiListState<FeedPage> {
   var index = 0;
 
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AdapterManager>.value(
-      value: _adapterManager,
-      child: internalBuild(context),
-    );
-  }
+  _FeedState()
+      : super((adapterManager) {
+          adapterManager
+              .registerDelegate(new TextDelegate())
+              .registerDelegate(new IntDelegate());
+        }, key: "FeedPage");
 
   Widget internalBuild(BuildContext context) {
     return Scaffold(
@@ -33,8 +28,8 @@ class _FeedState extends State<FeedPage> {
         child: Icon(Icons.add),
         tooltip: "记账",
         onPressed: () {
-          print("AdapterManager is ${_adapterManager.hashCode}");
-          _adapterManager.edit().add(index).add("HelloWorld").commit();
+          print("AdapterManager is ${mAdapterManager.hashCode}");
+          mAdapterManager.edit().add(index).add("HelloWorld").commit();
           index++;
         },
       ),
@@ -42,14 +37,6 @@ class _FeedState extends State<FeedPage> {
         title: const Text(feed_title),
       ),
       body: buildLokiListView(),
-    );
-  }
-
-  buildLokiListView() {
-    return LokiListView(
-      separatorBuilder: (BuildContext context, int index) {
-        return Divider();
-      },
     );
   }
 }

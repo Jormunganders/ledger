@@ -6,7 +6,7 @@ import 'package:ledger/common/list/list_view.dart';
 import 'package:ledger/reader/config/constants.dart';
 import 'package:ledger/reader/config/reader_net_service.dart';
 import 'package:ledger/reader/config/scene.dart';
-import 'package:ledger/reader/delegate/wx_official_account_delegate.dart';
+import 'package:ledger/reader/delegate/reader_delegates.dart';
 import 'package:provider/provider.dart';
 
 class WXOfficialAccountListPage extends StatefulWidget {
@@ -14,24 +14,18 @@ class WXOfficialAccountListPage extends StatefulWidget {
   State<StatefulWidget> createState() => _WXOfficialAccountListState();
 }
 
-class _WXOfficialAccountListState extends State<WXOfficialAccountListPage> {
-  final _adapterManager =
-      AdapterManager(Scene.WX_OFFICIAL_ACCOUNT_LIST.toString())
-          .registerDelegate(new WXOfficialDelegate());
+class _WXOfficialAccountListState
+    extends BaseLokiListState<WXOfficialAccountListPage> {
+  _WXOfficialAccountListState()
+      : super((adapterManager) {
+          adapterManager.registerDelegate(new WXOfficialDelegate());
+        }, key: Scene.WX_OFFICIAL_ACCOUNT_LIST.toString());
 
   @override
   void initState() {
-    ReaderNetService.getWXOfficialAccountList()
-        .then((result) => _adapterManager.edit().clear().addAll(result.data).commit());
+    ReaderNetService.getWXOfficialAccountList().then((result) =>
+        mAdapterManager.edit().clear().addAll(result.data).commit());
     super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AdapterManager>.value(
-      value: _adapterManager,
-      child: internalBuild(context),
-    );
   }
 
   Widget internalBuild(BuildContext context) {
@@ -40,14 +34,6 @@ class _WXOfficialAccountListState extends State<WXOfficialAccountListPage> {
         title: const Text(PAGE_TITLE.WX_OFFICIAL_ACCOUNT_LIST),
       ),
       body: buildLokiListView(),
-    );
-  }
-
-  buildLokiListView() {
-    return LokiListView(
-      separatorBuilder: (BuildContext context, int index) {
-        return Divider();
-      },
     );
   }
 }

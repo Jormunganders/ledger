@@ -17,11 +17,10 @@ class WXOfficialDelegate extends DelegateHolder<WXOfficialAccount> {
       title: Text(data.name),
       trailing: Icon(Icons.keyboard_arrow_right),
       onTap: () {
-        print("跳转");
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => WXOfficialAccountDetailPage()));
+                builder: (context) => WXOfficialAccountDetailPage(account: data,)));
       },
     );
   }

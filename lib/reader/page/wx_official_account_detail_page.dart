@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ledger/common/list/list_view.dart';
 import 'package:ledger/reader/config/constants.dart';
+import 'package:ledger/reader/config/reader_net_service.dart';
 import 'package:ledger/reader/config/scene.dart';
 import 'package:ledger/reader/model/wx_official_account.dart';
 
@@ -22,7 +23,7 @@ class _WXOfficialAccountDetailState
 
   @override
   void initState() {
-//    ReaderNetService.getWXOfficialAccountList().then((result) =>
+    ReaderNetService.getWXArticleList(widget.account.id).then(print);
 //        mAdapterManager.edit().clear().addAll(result.data).commit());
     super.initState();
   }

@@ -1,9 +1,7 @@
-class WXArticleList {
-  Data data;
-  int errorCode;
-  String errorMsg;
+import 'package:ledger/common/model/base_net_model.dart';
 
-  WXArticleList({this.data, this.errorCode, this.errorMsg});
+class WXArticleList extends BaseNetModel<Data> {
+  Data data;
 
   WXArticleList.fromJson(Map<String, dynamic> json) {
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;

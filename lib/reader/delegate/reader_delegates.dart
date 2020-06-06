@@ -7,6 +7,7 @@ import 'package:ledger/common/list/adapter_manager.dart';
 import 'package:ledger/reader/model/wx_article_list.dart';
 import 'package:ledger/reader/model/wx_official_account.dart';
 import 'package:ledger/reader/page/wx_official_account_detail_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WXOfficialDelegate extends DelegateHolder<WXOfficialAccount> {
   @override
@@ -21,7 +22,9 @@ class WXOfficialDelegate extends DelegateHolder<WXOfficialAccount> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => WXOfficialAccountDetailPage(account: data,)));
+                builder: (context) => WXOfficialAccountDetailPage(
+                      account: data,
+                    )));
       },
     );
   }
@@ -30,9 +33,18 @@ class WXOfficialDelegate extends DelegateHolder<WXOfficialAccount> {
 class WXArticleDelegate extends DelegateHolder<WXArticleInfo> {
   @override
   Widget build(BuildContext context, WXArticleInfo data, int position) {
-
+    return ListTile(
+      leading: CircleAvatar(
+        child: Text(data.title.substring(0, 1).toUpperCase()),
+      ),
+      title: Text(data.title),
+      subtitle: Text(data.niceDate),
+      trailing: Icon(Icons.keyboard_arrow_right),
+      onTap: () {
+        launch(data.link);
+      },
+    );
   }
-
 }
 
 /* todo 需要显示的元素。

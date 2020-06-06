@@ -3,6 +3,7 @@ import 'package:ledger/common/list/list_view.dart';
 import 'package:ledger/reader/config/constants.dart';
 import 'package:ledger/reader/config/reader_net_service.dart';
 import 'package:ledger/reader/config/scene.dart';
+import 'package:ledger/reader/delegate/reader_delegates.dart';
 import 'package:ledger/reader/model/wx_official_account.dart';
 
 class WXOfficialAccountDetailPage extends StatefulWidget {
@@ -18,13 +19,14 @@ class _WXOfficialAccountDetailState
     extends BaseLokiListState<WXOfficialAccountDetailPage> {
   _WXOfficialAccountDetailState()
       : super((adapterManager) {
-//    adapterManager.registerDelegate(new WXOfficialDelegate());
-        }, key: Scene.WX_OFFICIAL_ACCOUNT_DETAIL.toString());
+          adapterManager.registerDelegate(new WXArticleDelegate());
+        });
 
   @override
   void initState() {
-    ReaderNetService.getWXArticleList(widget.account.id).then(print);
-//        mAdapterManager.edit().clear().addAll(result.data).commit());
+    ReaderNetService.getWXArticleList(widget.account.id).then((result) {
+      mAdapterManager.edit().clear().addAll(result.data.datas).commit();
+    });
     super.initState();
   }
 

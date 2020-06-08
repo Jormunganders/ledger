@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ledger/common/net/net.dart';
+import 'package:ledger/common/net/net_engine.dart';
 import 'package:ledger/reader/config/constants.dart';
 import 'package:ledger/reader/config/scene.dart';
 import 'package:ledger/reader/model/wx_article_list.dart';
@@ -7,7 +8,8 @@ import 'package:ledger/reader/model/wx_official_account.dart';
 
 class ReaderNetService {
   static Future<WXOfficialAccountList> getWXOfficialAccountList() async {
-    Response response = await globalDio().get(URL.GET_WX_ACCOUNT_LIST);
+    CommonResponse response =
+        await NetEngineFactory.getEngine().get(URL.GET_WX_ACCOUNT_LIST);
     handleNetResponse(response,
         url: URL.GET_WX_ACCOUNT_LIST,
         message: "获取公众号列表",
@@ -17,8 +19,7 @@ class ReaderNetService {
 
   static Future<WXArticleList> getWXArticleList(int id, {int page = 1}) async {
     String url = URL.getWXArticleListUrl(id, page);
-    Response response =
-    await globalDio().get(url);
+    CommonResponse response = await NetEngineFactory.getEngine().get(url);
     handleNetResponse(response,
         url: url,
         message: "获取公众号历史数据",

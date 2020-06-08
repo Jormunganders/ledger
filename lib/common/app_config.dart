@@ -8,11 +8,15 @@ import 'package:package_info/package_info.dart';
 import 'develop.dart';
 
 /// 是否在生产环境
-_isInProduction() => bool.fromEnvironment("dart.vm.product");
+_isInProduction() {
+  const vmProduct = bool.fromEnvironment("dart.vm.product");
+  return vmProduct;
+}
 
-isInProduction() =>
-    bool.fromEnvironment("dart.vm.product") ||
-    isFeatureDisable("feature_debug_mode");
+isInProduction() {
+  const vmProduct = bool.fromEnvironment("dart.vm.product");
+  return vmProduct || isFeatureDisable("feature_debug_mode");
+}
 
 class AppConfig {
   static String appName;

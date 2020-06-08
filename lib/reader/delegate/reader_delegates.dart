@@ -46,10 +46,3 @@ class WXArticleDelegate extends DelegateHolder<WXArticleInfo> {
     );
   }
 }
-
-/* todo 需要显示的元素。
-1. 作者
-2. 时间
-3. 标题
-直接使用 ListTile
- */

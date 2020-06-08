@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'net_config.dart';
 import '../app_config.dart';
 import '../utils.dart';
+import 'net_engine.dart';
 
 Dio globalDio() {
   return Dio(_getBaseOption());
@@ -58,7 +59,7 @@ _getBaseParameters() {
 
 //-------Functions---------
 handleNetResponse(
-  Response response, {
+  CommonResponse response, {
   String url = "No Url",
   String message = "No Message",
   String scene = "No Scene",

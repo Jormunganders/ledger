@@ -39,8 +39,8 @@ _getBaseParameters() {
     // user about (like uid)
 
     // flutter about
-    "numberOfProcessors": Platform.numberOfProcessors,
-    "localeName": Platform.localeName,
+    "numberOfProcessors": getNumberOfProcessors(),
+    "localeName": Platform.localeName,  // todo
     "operatingSystem": Platform.operatingSystem,
     "operatingSystemVersion": Platform.operatingSystemVersion,
     "localHostname": Platform.localHostname,
@@ -67,5 +67,14 @@ handleNetResponse(
   if (isInProduction()) {
     print(
         "Url：[$url]\tScene: [$scene]\tMessage: [$message]\tCode:[${response.statusCode}]");
+  }
+}
+
+getNumberOfProcessors() {
+  try {
+    return Platform.numberOfProcessors;
+  } catch (e) {
+//    print(e);
+    return "UNKNOWN";
   }
 }

@@ -5,6 +5,7 @@ import 'package:ledger/reader/config/reader_net_service.dart';
 import 'package:ledger/reader/config/scene.dart';
 import 'package:ledger/reader/delegate/reader_delegates.dart';
 import 'package:ledger/reader/model/wx_official_account.dart';
+import 'package:ledger/reader/page/wx_article_search_page.dart';
 
 class WXOfficialAccountDetailPage extends StatefulWidget {
   final WXOfficialAccount account;
@@ -74,10 +75,9 @@ class _WXOfficialAccountDetailState
                           Icons.search,
                           color: Colors.white,
                         ),
-                        onPressed: () =>
-                            Scaffold.of(context).showSnackBar(SnackBar(
-                              content: Text("搜索历史文章"),
-                            ))),
+                        onPressed: () => showSearch(
+                            context: context,
+                            delegate: WXArticleSearchDelegate())),
                     IconButton(
                         tooltip: 'More',
                         icon: new Icon(

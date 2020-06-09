@@ -4,6 +4,7 @@ import 'package:ledger/common/colors.dart';
 import 'package:ledger/common/develop.dart';
 import 'package:ledger/common/strings.dart';
 import 'package:ledger/reader/page/reader_host_page.dart';
+import 'package:ledger/reader/page/wx_article_search_page.dart';
 
 class MinePage extends StatelessWidget {
   @override
@@ -120,10 +121,7 @@ class MinePage extends StatelessWidget {
       onSelected: (String value) {
         switch (value) {
           case DEMO:
-            Navigator.push(
-              context,
-              new MaterialPageRoute(builder: (context) => new ReaderHostPage()),
-            );
+            showSearch(context: context, delegate: WXArticleSearchDelegate());
             break;
         }
       },

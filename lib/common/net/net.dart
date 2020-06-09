@@ -40,10 +40,11 @@ _getBaseParameters() {
 
     // flutter about
     "numberOfProcessors": getNumberOfProcessors(),
-    "localeName": Platform.localeName,  // todo
-    "operatingSystem": Platform.operatingSystem,
-    "operatingSystemVersion": Platform.operatingSystemVersion,
-    "localHostname": Platform.localHostname,
+    "localeName": getLocaleName(),
+    "operatingSystem": _getConfigSafety(() => Platform.operatingSystem),
+    "operatingSystemVersion":
+        _getConfigSafety(() => Platform.operatingSystemVersion),
+    "localHostname": _getConfigSafety(() => Platform.localHostname),
     // app about
     "appName": AppConfig.appName,
     "packageName": AppConfig.packageName,
@@ -70,11 +71,14 @@ handleNetResponse(
   }
 }
 
-getNumberOfProcessors() {
+_getConfigSafety(Function function) {
   try {
-    return Platform.numberOfProcessors;
+    return function();
   } catch (e) {
-//    print(e);
     return "UNKNOWN";
   }
 }
+
+getNumberOfProcessors() => _getConfigSafety(() => Platform.numberOfProcessors);
+
+getLocaleName() => _getConfigSafety(() => Platform.localeName);

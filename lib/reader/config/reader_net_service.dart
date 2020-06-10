@@ -27,6 +27,17 @@ class ReaderNetService {
     return WXArticleList.fromJson(response.data);
   }
 
+  static Future<WXArticleList> searchWXArticle(int id, String key,
+      {int page = 1}) async {
+    String url = URL.getSearchWXArticleUrl(id, page, key);
+    CommonResponse response = await NetEngineFactory.getEngine().get(url);
+    handleNetResponse(response,
+        url: url,
+        message: "搜索公众号历史数据",
+        scene: Scene.WX_OFFICIAL_ACCOUNT_SEARCH.toString());
+    return WXArticleList.fromJson(response.data);
+  }
+
 // todo 抽出公用方法到 common 里
 
 }

@@ -121,7 +121,7 @@ class MinePage extends StatelessWidget {
       onSelected: (String value) {
         switch (value) {
           case DEMO:
-            showSearch(context: context, delegate: WXArticleSearchDelegate());
+//            showSearch(context: context, delegate: WXArticleSearchDelegate());
             break;
         }
       },

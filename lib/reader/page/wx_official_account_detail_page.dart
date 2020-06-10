@@ -77,7 +77,7 @@ class _WXOfficialAccountDetailState
                         ),
                         onPressed: () => showSearch(
                             context: context,
-                            delegate: WXArticleSearchDelegate())),
+                            delegate: WXArticleSearchDelegate(widget.account))),
                     IconButton(
                         tooltip: 'More',
                         icon: new Icon(

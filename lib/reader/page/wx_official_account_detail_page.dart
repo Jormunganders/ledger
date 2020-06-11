@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ledger/common/list/list_view.dart';
-import 'package:ledger/reader/config/constants.dart';
 import 'package:ledger/reader/config/reader_net_service.dart';
-import 'package:ledger/reader/config/scene.dart';
 import 'package:ledger/reader/delegate/reader_delegates.dart';
 import 'package:ledger/reader/model/wx_official_account.dart';
 import 'package:ledger/reader/page/wx_article_search_page.dart';

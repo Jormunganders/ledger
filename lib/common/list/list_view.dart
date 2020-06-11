@@ -40,10 +40,6 @@ class _LokiState extends State<LokiListView> {
   _LokiState(this.currentScene, this.separatorBuilder, this.autoEmpty,
       this.autoCrossAxisCount, this.crossAxisCount, this.gridLayout);
 
-  set scene(PageScene scene) {
-    currentScene = scene;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<AdapterManager>(
@@ -53,7 +49,11 @@ class _LokiState extends State<LokiListView> {
   }
 
   Widget internalBuild(BuildContext context, AdapterManager adapterManager) {
-    switch (currentScene) {
+    PageScene scene = adapterManager.scene;
+    if (scene == null) {
+      scene = currentScene;
+    }
+    switch (scene) {
       case PageScene.LIST:
         if (autoEmpty) {
           // 根据列表数据自动判断是否显示空页面
@@ -144,11 +144,12 @@ abstract class BaseLokiListState<T extends StatefulWidget> extends State<T> {
     return buildLokiListView();
   }
 
-  buildLokiListView() {
+  buildLokiListView({PageScene scene = PageScene.LOADING}) {
     return LokiListView(
       separatorBuilder: (BuildContext context, int index) {
         return Divider();
       },
+      currentScene: scene,
     );
   }
 

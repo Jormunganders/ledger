@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 
-// todo 增加状态切换，loading，error 这些页面
+import 'list_view.dart';
+
 class AdapterManager with ChangeNotifier {
   static Map<String, AdapterManager> _cache = new Map<String, AdapterManager>();
 
@@ -15,6 +16,19 @@ class AdapterManager with ChangeNotifier {
       _cache[key] = adapterManager;
       return adapterManager;
     }
+  }
+
+  PageScene _scene;
+
+  get scene => _scene;
+
+  set scene(PageScene scene) {
+    _scene = scene;
+  }
+
+  changePageSceneAndNotify(PageScene scene) {
+    this._scene = scene;
+    notifyDataChanged();
   }
 
   AdapterManager._internal();
@@ -81,7 +95,8 @@ class Editor {
     return this;
   }
 
-  commit() {
+  commit({PageScene scene = PageScene.LIST}) {
+    _adapterManager.scene = scene;
     _adapterManager.notifyDataChanged();
   }
 }

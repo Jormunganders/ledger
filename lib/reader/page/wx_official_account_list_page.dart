@@ -18,13 +18,17 @@ class _WXOfficialAccountListState
     extends BaseLokiListState<WXOfficialAccountListPage> {
   _WXOfficialAccountListState()
       : super((adapterManager) {
-          adapterManager.registerDelegate(new WXOfficialDelegate());
+          adapterManager
+              .registerDelegate(new WXOfficialDelegate())
+              .registerDelegate(BannerDelegate());
         }, key: Scene.WX_OFFICIAL_ACCOUNT_LIST.toString());
 
   @override
   void initState() {
     ReaderNetService.getWXOfficialAccountList().then((result) =>
         mAdapterManager.edit().clear().addAll(result.data).commit());
+    ReaderNetService.getBannerData()
+        .then((value) => mAdapterManager.edit().insert(0, value).commit());
     super.initState();
   }
 

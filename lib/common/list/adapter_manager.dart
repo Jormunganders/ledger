@@ -40,7 +40,7 @@ class AdapterManager with ChangeNotifier {
 
   isEmpty() => _dataList.isEmpty;
 
-  edit() => new Editor(_dataList, this);
+  Editor edit() => new Editor(_dataList, this);
 
   notifyDataChanged() {
     notifyListeners();
@@ -87,6 +87,11 @@ class Editor {
 
   Editor add(dynamic item) {
     data.add(item);
+    return this;
+  }
+
+  Editor insert(int index, dynamic item) {
+    data.insert(index, item);
     return this;
   }
 

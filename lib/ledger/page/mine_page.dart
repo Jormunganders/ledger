@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:ledger/common/colors.dart';
+import 'package:ledger/common/delegate/delegates.dart';
 import 'package:ledger/common/develop.dart';
 import 'package:ledger/common/strings.dart';
+import 'package:ledger/common/list/banner.dart';
 import 'package:ledger/reader/page/reader_host_page.dart';
 import 'package:ledger/reader/page/wx_article_search_page.dart';
 
@@ -122,6 +124,8 @@ class MinePage extends StatelessWidget {
         switch (value) {
           case DEMO:
 //            showSearch(context: context, delegate: WXArticleSearchDelegate());
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => DemoPage()));
             break;
         }
       },
@@ -137,3 +141,38 @@ const SETTINGS = "settings";
 const HELP = "help";
 const DEVELOP = "develop";
 const DEMO = "DEMO";
+
+class DemoPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _DemoState();
+}
+
+class _DemoState extends BaseBannerState<DemoPage> {
+  var index = 0;
+
+  _DemoState()
+      : super((adapterManager) {
+          adapterManager
+              .registerDelegate(new TextDelegate())
+              .registerDelegate(new IntDelegate());
+        });
+
+  @override
+  Widget internalBuild(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        tooltip: "记账",
+        onPressed: () {
+          print("AdapterManager is ${mAdapterManager.hashCode}");
+          mAdapterManager.edit().add(index).add("HelloWorld").commit();
+          index++;
+        },
+      ),
+      appBar: AppBar(
+        title: const Text("Demo"),
+      ),
+      body: buildBannerView(),
+    );
+  }
+}

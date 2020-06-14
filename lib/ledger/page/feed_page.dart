@@ -16,11 +16,13 @@ class _FeedState extends BaseLokiListState<FeedPage> {
   var index = 0;
 
   _FeedState()
-      : super((adapterManager) {
-          adapterManager
-              .registerDelegate(new TextDelegate())
-              .registerDelegate(new IntDelegate());
-        }, key: "FeedPage");
+      : super(
+          (adapterManager) {
+            adapterManager
+                .registerDelegate(new TextDelegate())
+                .registerDelegate(new IntDelegate());
+          },
+        );
 
   Widget internalBuild(BuildContext context) {
     return Scaffold(
@@ -28,7 +30,6 @@ class _FeedState extends BaseLokiListState<FeedPage> {
         child: Icon(Icons.add),
         tooltip: "记账",
         onPressed: () {
-          print("AdapterManager is ${mAdapterManager.hashCode}");
           mAdapterManager.edit().add(index).add("HelloWorld").commit();
           index++;
         },

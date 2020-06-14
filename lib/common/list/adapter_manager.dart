@@ -46,7 +46,8 @@ class AdapterManager with ChangeNotifier {
     notifyListeners();
   }
 
-  Widget buildListItem(BuildContext context, int position) {
+  Widget buildListItem(BuildContext context, int position,
+      {Function defaultBuilder}) {
     var item = _dataList[position];
 
     Delegate selectDelegate;
@@ -61,7 +62,11 @@ class AdapterManager with ChangeNotifier {
     });
 
     if (selectDelegate == null) {
-      throw new Exception("没有找到对应的 Delegate");
+      if (defaultBuilder == null) {
+        throw new Exception("没有找到对应的 Delegate");
+      } else {
+        return defaultBuilder(item, position);
+      }
     }
 
     return selectDelegate.getHolder().build(context, item, position);

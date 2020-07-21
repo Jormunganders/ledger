@@ -5,6 +5,7 @@ import 'package:ledger/common/delegate/delegates.dart';
 import 'package:ledger/common/develop.dart';
 import 'package:ledger/common/strings.dart';
 import 'package:ledger/common/list/banner.dart';
+import 'package:ledger/julia/page/random_image_page.dart';
 import 'package:ledger/reader/page/reader_host_page.dart';
 import 'package:ledger/reader/page/wx_article_search_page.dart';
 
@@ -126,6 +127,10 @@ class MinePage extends StatelessWidget {
 //            showSearch(context: context, delegate: WXArticleSearchDelegate());
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => DemoPage()));
+            break;
+          case DEVELOP:
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => RandomImagePage()));
             break;
         }
       },
